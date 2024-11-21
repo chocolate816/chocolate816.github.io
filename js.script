@@ -1,8 +1,8 @@
-let depth = 50
+let depth = 0
 let inLobby = true
 let layers = ["g", "g", "g", "g", "g"]
 const layer = document.getElementsByClassName("layerprint")[0]  
-let money = 5000
+let money = 5
 let timesMined = 0
 let costToEnter = 5
 const allButtons = document.getElementsByName('save')
