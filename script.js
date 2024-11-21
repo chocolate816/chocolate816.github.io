@@ -2,7 +2,7 @@ let depth = 0
 let inLobby = true
 let layers = ["g", "g", "g", "g", "g"]
 const layer = document.getElementsByClassName("layerprint")[0]  
-let money = 5
+let money = 5000
 let timesMined = 0
 let costToEnter = 5
 const allButtons = document.getElementsByName('save')
@@ -23,10 +23,10 @@ const lobby = document.getElementsByClassName("lobby")
 const mining = document.getElementsByClassName("in-mine")
 const allDisasterData = [
   ["d", 'FLOOD!!', 'Water starts flooding into your mine. You will drown soon.', 0, 30, 'lifevest', 
- "useTool('vest')"],
-  ["c", 'CAVE IN!!', 'The floor of your mine suddenly collapses. You will be crushed by rocks soon.', 0, 30, 'grappling hook', "useTool('hook')"],
-  ["l", 'GAS LEAK!!', 'A strange gas starts clouding up your vision and your lungs. You will be suffocated to death soon.', 0, 30, 'gas mask', "useTool('mask')"],
-  ["Lava", 'LAVA FLOOD!!', 'You start to feel hot, another swing opens up a molten layer of lava gushing out of the ground. You will melt soon.', 50, 10, 'heat suit', "useTool('suit')"]
+ "useTool('vest')", "You hear a distant sound of rushing water, growing louder with each passing moment..."],
+  ["c", 'CAVE IN!!', 'The floor of your mine suddenly collapses. You will be crushed by rocks soon.', 0, 30, 'grappling hook', "useTool('hook')", "The ground trembles slightly beneath you, as if something deep within the earth is shifting..."],
+  ["l", 'GAS LEAK!!', 'A strange gas starts clouding up your vision and your lungs. You will be suffocated to death soon.', 0, 30, 'gas mask', "useTool('mask')", "A strange, acrid scent begins to fill the air, making your lungs feel heavy..."],
+  ["Lava", 'LAVA FLOOD!!', 'You start to feel hot, another swing opens up a molten layer of lava gushing out of the ground. You will melt soon.', 50, 10, 'heat suit', "useTool('suit')", "The temprature starts to rise and a faint bubbling sound fills the air."]
 ]
 getMon.innerText = `$${money}`
 
@@ -81,7 +81,6 @@ function ChanceOfDisaster(layer) {
   let possibleOut = allDisasterData
   .filter(i => i[3] <= layer) 
   .map(i => i[0]); 
-  console.log(possibleOut)
   if (Math.floor(Math.random() * 100) <= Math.floor((layer / 3) + 5)) {
     for (let i = 0; i < allDisasterData.length; i++) {
       current += allDisasterData[i][4]
@@ -232,17 +231,8 @@ function nextLayer(type) {
       money += ranMon
       mineMsg.innerText = `${listOfMsgs[RandomOfArray(listOfMsgs)]} ${usedMsg[0]} (+$${ranMon})`
       if (Array.isArray(warnings) && warnings[0]) {
-    if (warnings[1] === "d") {
-      coloredText.innerText = "You hear a distant sound of rushing water, growing louder with each passing moment...";
-    } else if (warnings[1] === "l") {
-      coloredText.innerText = "A strange, acrid scent begins to fill the air, making your lungs feel heavy...";
-    } else if (warnings[1] === "c") {
-      coloredText.innerText = "The ground trembles slightly beneath you, as if something deep within the earth is shifting...";
-    } else if (warning[1] === "Lava") {
-      coloredText.innerText = "The temprature starts to rise and a faint bubbling sound fills the air."
-    } else {
-      coloredText.innerText = ''
-    }
+			let reference = allDisasterData.findIndex(data => data[0] === warnings[1])
+			coloredText.innerText = allDisasterData[reference][7]
   }
       getMon.innerText = `$${money}`
       allButtons[0].style.display = 'inline'
@@ -254,6 +244,7 @@ function nextLayer(type) {
   }
   console.log(layers)
 }
+
 
 function startmining() {
   if (money >= costToEnter) {
@@ -283,7 +274,7 @@ function startmining() {
 function stopmining() {
   inLobby = true
   buy()
-  costToEnter = Math.floor((timesMined * 5) ** 1.3)
+  costToEnter = Math.floor((timesMined * 5) ** 1.60)
   const minebutton = document.getElementsByClassName('mine-button')[0]
   const title = document.getElementsByClassName("title")[0]
   minebutton.innerText = `Mine Down $${costToEnter}`
