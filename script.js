@@ -283,7 +283,7 @@ function startmining() {
 function stopmining() {
   inLobby = true
   buy()
-  costToEnter = Math.floor((timesMined * 5) ** 1.60)
+  costToEnter = Math.floor((timesMined * 5) ** 1.3)
   const minebutton = document.getElementsByClassName('mine-button')[0]
   const title = document.getElementsByClassName("title")[0]
   minebutton.innerText = `Mine Down $${costToEnter}`
