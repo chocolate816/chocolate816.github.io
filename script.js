@@ -1,6 +1,6 @@
 let depth = 0
 let inLobby = true
-let layers = ["g", "g", "g", "g", "g"]
+let layers = ["g", "g", "g", "g", "g", "g", "g"]
 const layer = document.getElementsByClassName("layerprint")[0]  
 let money = 5
 let timesMined = 0
@@ -16,7 +16,8 @@ const toolData = [
   [80, 0, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
   [80, 0, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
   [80, 0, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
-  [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.']
+  [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
+	[2000, 0, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
 ]
 const getMon = document.getElementsByClassName('money')[0]
 const lobby = document.getElementsByClassName("lobby")
@@ -26,7 +27,8 @@ const allDisasterData = [
  "useTool('vest')", "You hear a distant sound of rushing water, growing louder with each passing moment..."],
   ["c", 'CAVE IN!!', 'The floor of your mine suddenly collapses. You will be crushed by rocks soon.', 0, 30, 'grappling hook', "useTool('hook')", "The ground trembles slightly beneath you, as if something deep within the earth is shifting..."],
   ["l", 'GAS LEAK!!', 'A strange gas starts clouding up your vision and your lungs. You will be suffocated to death soon.', 0, 30, 'gas mask', "useTool('mask')", "A strange, acrid scent begins to fill the air, making your lungs feel heavy..."],
-  ["Lava", 'LAVA FLOOD!!', 'You start to feel hot, another swing opens up a molten layer of lava gushing out of the ground. You will melt soon.', 50, 10, 'heat suit', "useTool('suit')", "The temprature starts to rise and a faint bubbling sound fills the air."]
+  ["Lava", 'LAVA FLOOD!!', 'You start to feel hot, another swing opens up a molten layer of lava gushing out of the ground. You will melt soon.', 50, 10, 'heat suit', "useTool('suit')", "The temprature starts to rise and a faint bubbling sound fills the air."],
+	["Bomb", 'BOMB THREAT!!', 'As you swing your pickaxe, you strike something hard, thinking it is precious, you uncover it and find a live bomb about to go off. You will blow up soon.', 50, 5, 'bomb defuser', "useTool('defuse')", 'you get a strange feeling, as if something big were to happen soon...']
 ]
 getMon.innerText = `$${money}`
 
@@ -156,8 +158,8 @@ function checkNewMat(layer) {
   } else if (layer >= 25) {
     matMsgs = [
       ['You find some gold and silver nuggets in the ground. Sweet!', 60, 50],
-      ['A shine from the cavern wall catches your attention. A ruby!', 84, 20],
-      ['A shine from the cavern wall catches your attention. An emerald!', 90, 20],
+      ['A vermillion shine from the cavern wall catches your attention. A ruby!', 84, 20],
+      ['A veridian shine from the cavern wall catches your attention. An emerald!', 90, 20],
       ['A swing from your pickaxe reveals a small pocket of water loaded with crystals!', 120, 7],
       ["A chest! A rare chest! I'm RICHHH!!!!", 300, 3]
     ]
@@ -245,7 +247,6 @@ function nextLayer(type) {
   console.log(layers)
 }
 
-
 function startmining() {
   if (money >= costToEnter) {
     money -= costToEnter
@@ -255,13 +256,11 @@ function startmining() {
   }
   timesMined += 1
   inLobby = false
-  // Set opacity for "lobby" to 0
   if (lobby) {
     for (let i = 0; i < lobby.length; i++) {
       lobby[i].style.visibility = 'hidden'
     }
   }
-  // Set opacity for "mining" to 1
   if (mining) {
     for (let i = 0; i < mining.length; i++) {
       mining[i].style.visibility = 'visible'
@@ -278,13 +277,11 @@ function stopmining() {
   const minebutton = document.getElementsByClassName('mine-button')[0]
   const title = document.getElementsByClassName("title")[0]
   minebutton.innerText = `Mine Down $${costToEnter}`
-  // Set opacity for "lobby" to 0
   if (lobby) {
     for (let i = 0; i < lobby.length; i++) {
       lobby[i].style.visibility = "visible"
     }
   }
-  // Set opacity for "mining" to 1
   if (mining) {
     for (let i = 0; i < mining.length; i++) {
       mining[i].style.visibility = "hidden"
