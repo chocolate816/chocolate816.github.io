@@ -15,11 +15,11 @@ let matMsgs = [
   ["Wow! A common chest full of money!!!", 100, 5],
 ]
 let toolData = [
-  [80, 500, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
-  [80, 500, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
-  [80, 500, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
-  [500, 500, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
-	[2000, 500, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
+  [80, 0, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
+  [80, 0, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
+  [80, 0, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
+  [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
+  [2000, 0, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
 ]
 const getMon = document.getElementsByClassName('money')[0]
 const lobby = document.getElementsByClassName("lobby")
