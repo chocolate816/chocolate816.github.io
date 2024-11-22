@@ -5,14 +5,17 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-      <span class='money game'>$0</span>
+      <span class='money'>$0</span>
 		<p class='centeralign version'>version: 1.4</p>
     <h1 class="centeralign lobby title game">Mine Down</h1>
     <h2 class='centeralign game-over'>Game over!</h2>
     <p class='centeralign game-over'>You reached layer --- with $---!!</p>
+		<div style="display: flex; justify-content: center">
+		<button onclick='replay()' class='game-over'>Replay</button>
+		</div>
 
     <div style="display: flex; justify-content: center" class="lobby game">
-      <button onclick="startmining()" class='game mine-button'>Mine Down $5</button>
+      <button onclick="startmining()" class='game mine-button lobby'>Mine Down $5</button>
     </div>
 
    <div class='double-box'>
@@ -21,10 +24,10 @@
       <p class="game centeralign mine-msg in-mine same-height">you are mining.</p>
       <p class="warning"></p>
       <div class='game buttons'>
-        <button onclick="nextLayer(layers[1])" name='save'>go deeper</button>
-        <button onclick="stopmining()" name='save'>go home</button>
-        <button onclick="useTool('vest')" name='save'>Use lifevest</button>
-        <button onclick='surrender()' name='save'>Surrender</button>
+        <button class='in-mine' onclick="nextLayer(layers[1])" name='save'>go deeper</button>
+        <button class='in-mine' onclick="stopmining()" name='save'>go home</button>
+        <button class='in-mine' onclick="useTool('vest')" name='save'>Use lifevest</button>
+        <button class='in-mine' onclick='surrender()' name='save'>Surrender</button>
       </div>
     </div>
     </div>
