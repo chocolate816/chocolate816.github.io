@@ -43,7 +43,7 @@ function buy(type) {
 	upgradeButtons[i].innerText = `${toolData[i][3]} $${toolData[i][0]} (${toolData[i][1]})`
        }
   } else {
-	   if (money >= toolData[reference][0]) {
+  if (money >= toolData[reference][0]) {
      money -= toolData[reference][0]
      toolData[reference][1] += 1
      toolData[reference][0] = Math.round((toolData[reference][1] * toolData[reference][4]) ** 2.5) + toolData[reference][5]
@@ -257,7 +257,7 @@ function startmining() {
     getMon.innerText = `$${money}`
   } else {
     surrender()
-	  for (let i = 0; i < lobby.length; i++) {
+    for (let i = 0; i < lobby.length; i++) {
       lobby[i].style.visibility = 'hidden'
     }
   return
@@ -299,25 +299,31 @@ function stopmining() {
 }
 
 function replay() {
-  depth = 0
-	inLobby = true
-	layers = ["g", "g", "g", "g", "g", "g", "g"]
-	money = 5
-	timesMined = 0
+  const minebutton = document.getElementsByClassName('mine-button')[0]
 	costToEnter = 5
-	matMsgs = [
+	minebutton.innerText = `Mine Down $${costToEnter}`
+  depth = 0
+  inLobby = true
+  layers = ["g", "g", "g", "g", "g", "g", "g"]
+  money = 5
+  timesMined = 0
+  upgradeButtons = document.getElementsByClassName('upgrade') 
+  matMsgs = [
   ["You find some scrap metal and some rough crystals in the ground.", 16, 50],
   ["You find some bronze ore and some pieces of iron ore.", 20, 30],
   ["You find some fossils buried in the stone.", 26, 25],
   ["Wow! A common chest full of money!!!", 100, 5],
 	]
-	let toolData = [
+  toolData = [
   [80, 0, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
   [80, 0, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
   [80, 0, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
   [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
   [2000, 0, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
 ]
+  for (let i = 0; i < toolData.length; i++) {
+    upgradeButtons[i].innerText = `${toolData[i][3]} $${toolData[i][0]} (0)`
+	}
   for (let i = 0; i < lobby.length; i++) {
     lobby[i].style.visibility = "visible"
   }
