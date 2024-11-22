@@ -49,8 +49,8 @@
 .upgrade {
  margin: 0 10px 10px 10px;
  height: 40px;
-      }
-	.version {
-	position: relative;
-	top: -40px;
-	}
+}
+.version {
+position: relative;
+top: -40px;
+}
