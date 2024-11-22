@@ -5,24 +5,26 @@ const layer = document.getElementsByClassName("layerprint")[0]
 let money = 5
 let timesMined = 0
 let costToEnter = 5
+const everything = document.getElementsByClassName('game')
 const allButtons = document.getElementsByName('save')
+const gameOverText = document.getElementsByClassName('game-over')
 let matMsgs = [
   ["You find some scrap metal and some rough crystals in the ground.", 16, 50],
   ["You find some bronze ore and some pieces of iron ore.", 20, 30],
   ["You find some fossils buried in the stone.", 26, 25],
   ["Wow! A common chest full of money!!!", 100, 5],
 ]
-const toolData = [
-  [80, 0, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
-  [80, 0, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
-  [80, 0, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
-  [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
-  [2000, 0, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
+let toolData = [
+  [80, 500, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
+  [80, 500, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
+  [80, 500, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
+  [500, 500, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
+	[2000, 500, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
 ]
 const getMon = document.getElementsByClassName('money')[0]
 const lobby = document.getElementsByClassName("lobby")
 const mining = document.getElementsByClassName("in-mine")
-const allDisasterData = [
+let allDisasterData = [
   ["d", 'FLOOD!!', 'Water starts flooding into your mine. You will drown soon.', 0, 30, 'lifevest', 
  "useTool('vest')", "You hear a distant sound of rushing water, growing louder with each passing moment..."],
   ["c", 'CAVE IN!!', 'The floor of your mine suddenly collapses. You will be crushed by rocks soon.', 0, 30, 'grappling hook', "useTool('hook')", "The ground trembles slightly beneath you, as if something deep within the earth is shifting..."],
@@ -36,12 +38,12 @@ function buy(type) {
   const upgradeButtons = document.getElementsByClassName('upgrade') 
 	const reference = toolData.findIndex(data => data[2] === type)
 	if (type == undefined) {
-           for (let i = 0; i < toolData.length; i++) {
-	     toolData[i][0] = Math.round((toolData[i][1] * toolData[i][4]) ** 2.5) + toolData[i][5]
-	     upgradeButtons[i].innerText = `${toolData[i][3]} $${toolData[i][0]} (${toolData[i][1]})`
-	  }
-         } else {
-	   if (money >= toolData[reference][0]) {
+  for (let i = 0; i < toolData.length; i++) {
+	toolData[i][0] = Math.round((toolData[i][1] * toolData[i][4]) ** 2.5) + toolData[i][5]
+	upgradeButtons[i].innerText = `${toolData[i][3]} $${toolData[i][0]} (${toolData[i][1]})`
+	}
+  } else {
+     if (money >= toolData[reference][0]) {
      money -= toolData[reference][0]
      toolData[reference][1] += 1
      toolData[reference][0] = Math.round((toolData[reference][1] * toolData[reference][4]) ** 2.5) + toolData[reference][5]
@@ -76,7 +78,8 @@ function RandomOfArray(array) {
 }
 
 function ChanceOfDisaster(layer) {
-  let chance = allDisasterData.reduce((sum, msg) => sum + msg[4], 0)
+  let usableDisaster = allDisasterData.filter(data => data[3] <= layer)
+  let chance = usableDisaster.reduce((sum, msg) => sum + msg[4], 0)
   let randomAcc = Math.random() * chance
   let current = 0
   let pickedScen = null
@@ -101,8 +104,8 @@ function useTool(tool) {
   const minemsg = document.getElementsByClassName("mine-msg")[0]
 	const reference = toolData.findIndex(data => data[2] === tool)
   layer.innerText = 'Layer ' + depth
-	minemsg.innerText = toolData[reference][6]
-	toolData[reference][1] -= 1
+  minemsg.innerText = toolData[reference][6]
+  toolData[reference][1] -= 1
   allButtons[0].style.display = 'inline'
   allButtons[1].style.display = 'inline'
   allButtons[2].style.display = 'none'
@@ -169,8 +172,6 @@ function checkNewMat(layer) {
 }
 
 function surrender() {
-  const everything = document.getElementsByClassName('game')
-  const gameOverText = document.getElementsByClassName('game-over')
   for (let i = 0; i < everything.length; i++) {
     everything[i].style.visibility = 'hidden'
   }
@@ -233,8 +234,8 @@ function nextLayer(type) {
       money += ranMon
       mineMsg.innerText = `${listOfMsgs[RandomOfArray(listOfMsgs)]} ${usedMsg[0]} (+$${ranMon})`
       if (Array.isArray(warnings) && warnings[0]) {
-			let reference = allDisasterData.findIndex(data => data[0] === warnings[1])
-			coloredText.innerText = allDisasterData[reference][7]
+        let reference = allDisasterData.findIndex(data => data[0] === warnings[1])
+	coloredText.innerText = allDisasterData[reference][7]
   }
       getMon.innerText = `$${money}`
       allButtons[0].style.display = 'inline'
@@ -252,7 +253,11 @@ function startmining() {
     money -= costToEnter
     getMon.innerText = `$${money}`
   } else {
-    return
+    surrender()
+   for (let i = 0; i < lobby.length; i++) {
+      lobby[i].style.visibility = 'hidden'
+    }
+		return
   }
   timesMined += 1
   inLobby = false
@@ -288,4 +293,29 @@ function stopmining() {
     }
   }
   title.style.display = "block"
+}
+
+function replay() {
+  depth = 0
+  inLobby = true
+  layers = ["g", "g", "g", "g", "g", "g", "g"]
+  money = 5
+  timesMined = 0
+  costToEnter = 5
+  matMsgs = [
+  ["You find some scrap metal and some rough crystals in the ground.", 16, 50],
+  ["You find some bronze ore and some pieces of iron ore.", 20, 30],
+  ["You find some fossils buried in the stone.", 26, 25],
+  ["Wow! A common chest full of money!!!", 100, 5],
+	]
+	for (let i = 0; i < lobby.length; i++) {
+    lobby[i].style.visibility = "visible"
+  }
+	for (let i = 0; i < gameOverText.length; i++) {
+    gameOverText[i].style.display = "none"
+  }
+	for (let i = 0; i < mining.length; i++) {
+    mining[i].style.visibility = "hidden"
+  }
+  getMon.innerText = `$${money}`
 }
