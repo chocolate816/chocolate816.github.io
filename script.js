@@ -15,11 +15,11 @@ let matMsgs = [
   ["Wow! A common chest full of money!!!", 100, 5],
 ]
 let toolData = [
-  [80, 0, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
-  [80, 0, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
-  [80, 0, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
-  [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
-  [2000, 0, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
+  [80, 0, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.',document.getElementsByClassName('upgrade')[0]],
+  [80, 0, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.',document.getElementsByClassName('upgrade')[1]],
+  [80, 0, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.',document.getElementsByClassName('upgrade')[2]],
+  [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.',document.getElementsByClassName('upgrade')[3]],
+  [2000, 0, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.',document.getElementsByClassName('upgrade')[4]]
 ]
 const getMon = document.getElementsByClassName('money')[0]
 const lobby = document.getElementsByClassName("lobby")
@@ -33,7 +33,15 @@ let allDisasterData = [
   ["Bomb", 'BOMB THREAT!!', 'As you swing your pickaxe, you strike something hard, thinking it is precious, you uncover it and find a live bomb about to go off. You will blow up soon.', 50, 5, 'bomb defuser', "useTool('defuse')", 'you get a strange feeling, as if something big were to happen soon...']
 ]
 getMon.innerText = `$${money}`
-
+for (let i = 0; i < toolData.length; i++) {
+  if (allDisasterData[i][3] <= depth + 10) {
+    toolData[i][7].style.display = 'inline'
+  } else {
+    toolData[i][7].style.display = 'none'
+  }
+}
+	
+	
 function buy(type) {
   const upgradeButtons = document.getElementsByClassName('upgrade') 
   const reference = toolData.findIndex(data => data[2] === type)
@@ -230,6 +238,14 @@ function nextLayer(type) {
   let coloredText = document.getElementsByClassName('warning')[0]
   coloredText.innerText = ''
   var warnings = warning()
+  let reference = allDisasterData.findIndex(data => data[0] === warnings[1])
+  for (let i = 0; i < toolData.length; i++) {
+    if (allDisasterData[i][3] <= depth + 10) {
+      toolData[i][7].style.display = 'inline'
+    } else {
+      toolData[i][7].style.display = 'none'
+    }
+  }
   if (type === 'g') {
       layer.innerText = "Layer " + depth
       let usedMsg = advRanOfArray(matMsgs)
@@ -237,7 +253,6 @@ function nextLayer(type) {
       money += ranMon
       mineMsg.innerText = `${listOfMsgs[RandomOfArray(listOfMsgs)]} ${usedMsg[0]} (+$${ranMon})`
       if (Array.isArray(warnings) && warnings[0]) {
-	let reference = allDisasterData.findIndex(data => data[0] === warnings[1])
         coloredText.innerText = allDisasterData[reference][7]
   }
       getMon.innerText = `$${money}`
