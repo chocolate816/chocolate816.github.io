@@ -1,4 +1,4 @@
-let depth = 0
+let depth = 50
 let inLobby = true
 let layers = ["g", "g", "g", "g", "g", "g", "g"]
 const layer = document.getElementsByClassName("layerprint")[0]  
@@ -34,12 +34,12 @@ let allDisasterData = [
 ]
 getMon.innerText = `$${money}`
 for (let i = 0; i < toolData.length; i++) {
-  if (allDisasterData[i][3] <= depth + 10) {
-    toolData[i][7].style.display = 'inline'
-  } else {
-    toolData[i][7].style.display = 'none'
-  }
-}
+	  if (allDisasterData[i][3] <= depth + 10) {
+		  toolData[i][7].style.display = 'inline'
+		} else {
+		  toolData[i][7].style.display = 'none'
+		}
+	}
 	
 	
 function buy(type) {
@@ -238,14 +238,14 @@ function nextLayer(type) {
   let coloredText = document.getElementsByClassName('warning')[0]
   coloredText.innerText = ''
   var warnings = warning()
-  let reference = allDisasterData.findIndex(data => data[0] === warnings[1])
-  for (let i = 0; i < toolData.length; i++) {
-    if (allDisasterData[i][3] <= depth + 10) {
-      toolData[i][7].style.display = 'inline'
-    } else {
-      toolData[i][7].style.display = 'none'
-    }
-  }
+	let reference = allDisasterData.findIndex(data => data[0] === warnings[1])
+	for (let i = 0; i < toolData.length; i++) {
+	  if (allDisasterData[i][3] <= depth + 10) {
+		  toolData[i][7].style.display = 'inline'
+		} else {
+		  toolData[i][7].style.display = 'none'
+		}
+	}
   if (type === 'g') {
       layer.innerText = "Layer " + depth
       let usedMsg = advRanOfArray(matMsgs)
@@ -329,13 +329,6 @@ function replay() {
   ["You find some fossils buried in the stone.", 26, 25],
   ["Wow! A common chest full of money!!!", 100, 5],
 	]
-  toolData = [
-  [80, 0, 'vest', 'Lifevest', 3, 80, 'you wear your lifevest to stay on top of the water. You wait until the water level goes down and sign a sign of relief. You accidentally drop the lifevest.'],
-  [80, 0, 'hook', 'Grappling hook', 3, 80, 'Right before it is too late, you pull out your trusty grappling hook and grab a rock to pull yourself to safety. The hook ended up breaking.'],
-  [80, 0, 'mask', 'Gas mask', 3, 80, 'Before you go to sleep and never wake up, you put on a gas mask hooked on to an oxygen tank and wait out the gas. Unfortunatly, your gas mask ran out of gas.'],
-  [500, 0, 'suit', 'Heat suit', 8, 500, 'Before you are consumed by fire, you equip your trusty heat suit and endure the scalding tempratures. Unfortunatly, the suit is too scalded to be used again.'],
-  [2000, 0, 'defuse', 'Bomb defuser', 15, 2000, 'Before the time goes off, you quickly take up your defusal kit and start cutting the red wire. You save yourself in time, but you left your kit in the bomb and are too scared to get it.']
-]
   for (let i = 0; i < toolData.length; i++) {
     upgradeButtons[i].innerText = `${toolData[i][3]} $${toolData[i][0]} (0)`
 	}
@@ -349,4 +342,11 @@ function replay() {
     mining[i].style.visibility = "hidden"
   }
   getMon.innerText = `$${money}`
+	for (let i = 0; i < toolData.length; i++) {
+	  if (allDisasterData[i][3] <= depth + 10) {
+		  toolData[i][7].style.display = 'inline'
+		} else {
+		  toolData[i][7].style.display = 'none'
+		}
+	}
 }
