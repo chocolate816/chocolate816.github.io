@@ -1,4 +1,4 @@
-let depth = 50
+let depth = 0
 let inLobby = true
 let layers = ["g", "g", "g", "g", "g", "g", "g"]
 const layer = document.getElementsByClassName("layerprint")[0]  
